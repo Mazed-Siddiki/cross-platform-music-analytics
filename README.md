@@ -1,12 +1,16 @@
-# Music Clustering from Spotify Audio Features
+# Cross-Platform Music Analytics
 
-Unsupervised analysis of music tracks: two separate sources are merged into one enriched knowledge base, clustered, and then compared across four different feature spaces to see which one actually preserves the cluster structure.
+**Knowledge base enrichment and dimensionality reduction, a case study on Spotify and Apple Music.**
 
-Team project, Big Data course, MSc Artificial Intelligence and Robotics, CY Cergy Paris Université and ENSEA.
+Two music catalogues from different platforms are merged into one enriched knowledge base, clustered into interpretable musical profiles, and then compared across four feature spaces to see which one actually preserves that structure.
+
+Big Data project, Department of Computer Science, CY Cergy Paris Université.
+
+**Authors:** Khalil Hamdaoui · Mohamed El Hacen Cheikh Yacoub · Zakaria Fahmi Mohamed · Md Abdul Mazed Siddiki
 
 ## The question
 
-Streaming platforms describe a track in two very different ways. One source gives **metadata**: artist, album, genre, popularity. Another gives **acoustic features**: danceability, energy, loudness, valence, tempo, acousticness and so on. Neither alone says much about how music organises itself, so this project joins them and asks whether natural groups appear in the result.
+The two platforms describe a track in very different ways. One source gives **metadata**: artist, album, genre, popularity. The other gives **acoustic features**: danceability, energy, loudness, valence, tempo, acousticness and so on. Neither alone says much about how music organises itself, so this project joins them across platforms and asks whether natural groups appear in the result.
 
 ## Building the knowledge base
 
@@ -30,7 +34,19 @@ From the first dataset only descriptive attributes were kept, from the second on
 | K-Means | 0.223 |
 | DBSCAN | 0.202 |
 
-Silhouette scores in this range mean the groups are real but soft, with overlapping boundaries rather than cleanly separated clusters. That is an honest outcome for music: genres blend into each other.
+With **k = 5**, the centroids are readable as actual musical profiles rather than arbitrary partitions:
+
+| Cluster | Character | Danceability | Energy | Valence | Acousticness | Tempo | Loudness |
+|---|---|---|---|---|---|---|---|
+| C0 | Danceable, positive | 0.75 | 0.70 | 0.69 | 0.18 | 130 | -6.5 dB |
+| C1 | Mainstream | 0.60 | 0.55 | 0.52 | 0.17 | 120 | -5.8 dB |
+| C2 | Acoustic, relaxed | 0.48 | 0.40 | 0.44 | 0.55 | 105 | -10.2 dB |
+| C3 | Live, extended | 0.58 | 0.56 | 0.28 | 0.18 | 118 | -8.1 dB |
+| C4 | High intensity | 0.54 | 0.80 | 0.45 | 0.09 | 137 | -4.9 dB |
+
+The separation is intuitive: C2 is quiet and acoustic, C4 is loud, fast and low in acousticness, and C0 is the danceable and cheerful group. Cluster sizes range from 15 to 89 tracks, so they are unbalanced but each is large enough to mean something.
+
+Silhouette scores in this range mean the groups are real but soft, with overlapping boundaries rather than cleanly separated clusters. That is an honest outcome for music, where genres blend into each other.
 
 ## Which feature space preserves structure best
 
